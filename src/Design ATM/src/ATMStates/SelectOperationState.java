@@ -24,16 +24,4 @@ public class SelectOperationState extends ATMState {
                 exit(atm);
         }
     }
-
-    @Override
-    public void exit(ATM atm) {
-        returnCard();
-        atm.setAtmState(new IdleState());
-        System.out.println("Exit happens");
-    }
-
-    @Override
-    public void returnCard() {
-        System.out.println("Please collect your card");
-    }
 }

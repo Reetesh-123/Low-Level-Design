@@ -26,11 +26,13 @@ public abstract class ATMState {
     }
 
     public void returnCard() {
-        System.out.println("OOPS!! Something went wrong");
+        System.out.println("Please collect your card");
     }
 
     public void exit(ATM atm) {
-        System.out.println("OOPS!! Something went wrong");
+        returnCard();
+        atm.setAtmState(new IdleState());
+        System.out.println("Exit happens");
     }
 
 }
