@@ -13,4 +13,9 @@ public class Vehicle {
     {
         obj.drive();
     }
+
+    void setDriveStrategy(DriveStrategy object)
+    {
+        this.obj = object;
+    }
 }

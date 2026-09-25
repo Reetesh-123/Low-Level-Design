@@ -43,6 +43,7 @@ classDiagram
       ~DriveStrategy obj
       ~Vehicle(object)
       ~drive() void
+      ~setDriveStrategy(object) void
     }
 
     class PassengerVehicle {
