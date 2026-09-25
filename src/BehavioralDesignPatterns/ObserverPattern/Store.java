@@ -9,18 +9,18 @@ import BehavioralDesignPatterns.ObserverPattern.Observer.NotificationAlertObserv
 public class Store {
     public static void main(String[] args) {
 
-       StockObservable IphoneStockObserver = new IphoneObservableImp();
+       StockObservable iphoneStockObservable = new IphoneObservableImp();
 
-       NotificationAlertObserver emailAlert1 = new EmailAlertObserverImpl("reetesh@gmail.com", IphoneStockObserver);
-       NotificationAlertObserver emailAlert2 = new EmailAlertObserverImpl("reetesh2@gmail.com", IphoneStockObserver);
-       NotificationAlertObserver mobileAlert = new MobileAlertObserverImpl("Reetesh_Username", IphoneStockObserver);
-       
-       IphoneStockObserver.add(emailAlert1);
-       IphoneStockObserver.add(emailAlert2);
-       IphoneStockObserver.remove(emailAlert2);
-       IphoneStockObserver.add(mobileAlert);
+       NotificationAlertObserver emailAlert1 = new EmailAlertObserverImpl("reetesh@gmail.com", iphoneStockObservable);
+       NotificationAlertObserver emailAlert2 = new EmailAlertObserverImpl("reetesh2@gmail.com", iphoneStockObservable);
+       NotificationAlertObserver mobileAlert = new MobileAlertObserverImpl("Reetesh_Username", iphoneStockObservable);
 
-       IphoneStockObserver.setStockCount(100);
-       IphoneStockObserver.setStockCount(200);
+       iphoneStockObservable.add(emailAlert1);
+       iphoneStockObservable.add(emailAlert2);
+       iphoneStockObservable.remove(emailAlert2);
+       iphoneStockObservable.add(mobileAlert);
+
+       iphoneStockObservable.setStockCount(100);
+       iphoneStockObservable.setStockCount(200);
     }
 }
