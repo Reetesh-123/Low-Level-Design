@@ -12,8 +12,7 @@ classDiagram
     }
 
     class StockObservable {
-      <<interface>>
-      <<Subject>>
+      <<Subject interface>>
       +add(obj) void
       +remove(obj) void
       +notifySubscriber() void
@@ -33,8 +32,7 @@ classDiagram
     }
 
     class NotificationAlertObserver {
-      <<interface>>
-      <<Observer>>
+      <<Observer interface>>
       +update() void
     }
 
@@ -56,7 +54,7 @@ classDiagram
       -sentMsgOnMobile(userName, msg) void
     }
 
-    Store ..> StockObservable : uses (var: iphoneStockObservable)
+    Store ..> StockObservable : uses
     Store ..> NotificationAlertObserver : uses
 
     StockObservable <|.. IphoneObservableImp : implements
