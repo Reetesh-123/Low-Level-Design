@@ -1,87 +1,61 @@
 # Observer Pattern — Class Diagram
 
-Two sides, don't mix them up: the **`Observable` package holds the Subject role** (the thing being watched, `StockObservable` / `IphoneObservableImp`), and the **`Observer` package holds the Observer role** (the watcher, `NotificationAlertObserver` and its impls). `IphoneObservableImp` is the *Subject*/*Observable* — it keeps a list of `NotificationAlertObserver`s (the *Observers*) and calls `update()` on each when stock comes back. GoF stereotypes are annotated on each class below to make the mapping unambiguous.
+`StockObservable` (Subject) sits on the left with its child `IphoneObservableImp` below it. `NotificationAlertObserver` (Observer) sits on the right with its two children below it. The subject holds a list of observers and calls `update()` on each one.
 
 ```mermaid
 classDiagram
-    direction LR
+    direction TB
 
     class Store {
       <<client>>
-      +main() void
     }
 
     class StockObservable {
-      <<Subject interface>>
-      +add(obj) void
-      +remove(obj) void
-      +notifySubscriber() void
-      +setStockCount(newStockAdded) void
-      +getStockCount() int
+      <<interface>>
+      +add(obj)
+      +remove(obj)
+      +notifySubscriber()
     }
 
     class IphoneObservableImp {
-      <<ConcreteSubject>>
-      +int stocks
-      +ArrayList~NotificationAlertObserver~ observerList
-      +add(obj) void
-      +remove(obj) void
-      +notifySubscriber() void
-      +setStockCount(newStockAdded) void
-      +getStockCount() int
+      +notifySubscriber()
     }
 
     class NotificationAlertObserver {
-      <<Observer interface>>
-      +update() void
+      <<interface>>
+      +update()
     }
 
     class EmailAlertObserverImpl {
-      <<ConcreteObserver>>
-      ~String emailId
-      ~StockObservable observable
-      +EmailAlertObserverImpl(email, obj)
-      +update() void
-      -sendMail(emailId, msg) void
+      +update()
     }
 
     class MobileAlertObserverImpl {
-      <<ConcreteObserver>>
-      ~String userName
-      ~StockObservable observable
-      +MobileAlertObserverImpl(name, obj)
-      +update() void
-      -sentMsgOnMobile(userName, msg) void
+      +update()
     }
 
     Store ..> StockObservable : uses
-    Store ..> NotificationAlertObserver : uses
 
-    StockObservable <|.. IphoneObservableImp : implements
-    NotificationAlertObserver <|.. EmailAlertObserverImpl : implements
-    NotificationAlertObserver <|.. MobileAlertObserverImpl : implements
+    StockObservable <|-- IphoneObservableImp
+    NotificationAlertObserver <|-- EmailAlertObserverImpl
+    NotificationAlertObserver <|-- MobileAlertObserverImpl
 
-    IphoneObservableImp "1" o--> "*" NotificationAlertObserver : notifies
-    EmailAlertObserverImpl --> StockObservable : observes
-    MobileAlertObserverImpl --> StockObservable : observes
+    IphoneObservableImp o--> NotificationAlertObserver : notifies
 ```
 
 ## Legend
 
 | Arrow | Meaning |
 |---|---|
-| `..>` | dependency — client uses the interfaces |
-| `<\|..` | realization — class implements interface |
-| `o-->` | aggregation — subject holds its list of observers |
-| `-->` | association — observer keeps a reference to the subject |
+| `..>` | dependency — uses |
+| `<\|--` | child implements/extends parent |
+| `o-->` | subject holds a list of observers |
 
-## Role mapping (avoids the Observer/Observable mix-up)
+## Role mapping
 
 | GoF role | This code |
 |---|---|
-| **Subject** (interface) | `StockObservable` (in the `Observable` package) |
-| **ConcreteSubject** | `IphoneObservableImp` — the object being watched; holds the observer list |
-| **Observer** (interface) | `NotificationAlertObserver` (in the `Observer` package) |
-| **ConcreteObserver** | `EmailAlertObserverImpl`, `MobileAlertObserverImpl` — the watchers, each holding a reference back to the subject |
+| Subject | `StockObservable` → `IphoneObservableImp` |
+| Observer | `NotificationAlertObserver` → `EmailAlertObserverImpl`, `MobileAlertObserverImpl` |
 
-Rule of thumb: if a variable's type is `StockObservable`, it's the thing *being watched* — name it `...Observable`/`...Subject`, never `...Observer` (that was the bug fixed in `Store.java`: `iphoneStockObservable`, previously misnamed `IphoneStockObserver`).
+Rule of thumb: anything typed `StockObservable` is the thing being *watched* — name it `...Observable`, never `...Observer`.
