@@ -1,11 +1,9 @@
 # Observer Pattern — Class Diagram
 
-`StockObservable` (Subject) sits on the left with its child `IphoneObservableImp` below it. `NotificationAlertObserver` (Observer) sits on the right with its two children below it. The subject holds a list of observers and calls `update()` on each one.
+`StockObservable` (Subject) is realized by `IphoneObservableImp`. `NotificationAlertObserver` (Observer) is realized by two concrete observers. The subject holds a list of observers and calls `update()` on each one when it changes.
 
 ```mermaid
 classDiagram
-    direction TB
-
     class Store {
       <<client>>
     }
@@ -36,11 +34,11 @@ classDiagram
 
     Store ..> StockObservable : uses
 
-    StockObservable <|-- IphoneObservableImp
-    NotificationAlertObserver <|-- EmailAlertObserverImpl
-    NotificationAlertObserver <|-- MobileAlertObserverImpl
+    StockObservable <|.. IphoneObservableImp : implements
+    NotificationAlertObserver <|.. EmailAlertObserverImpl : implements
+    NotificationAlertObserver <|.. MobileAlertObserverImpl : implements
 
-    IphoneObservableImp o--> NotificationAlertObserver : notifies
+    IphoneObservableImp o--> "*" NotificationAlertObserver : notifies
 ```
 
 ## Legend
@@ -48,8 +46,8 @@ classDiagram
 | Arrow | Meaning |
 |---|---|
 | `..>` | dependency — uses |
-| `<\|--` | child implements/extends parent |
-| `o-->` | subject holds a list of observers |
+| `<\|..` | realization — class implements interface |
+| `o-->` | aggregation — subject holds a list of observers |
 
 ## Role mapping
 
