@@ -1,6 +1,6 @@
 # Observer Pattern — Class Diagram
 
-`StockObservable` (Subject) is realized by `IphoneObservableImp`. `NotificationAlertObserver` (Observer) is realized by two concrete observers. The subject holds a list of observers and calls `update()` on each one when it changes.
+Best-practice layout is a combination, not one or the other: each interface's implementers render **top-to-bottom** below it (standard for realization/inheritance), while the two independent hierarchies — the Subject side (`StockObservable`) and the Observer side (`NotificationAlertObserver`) — sit **side-by-side** since neither depends on the other, only `IphoneObservableImp` aggregates the observers.
 
 ```mermaid
 classDiagram
@@ -33,6 +33,7 @@ classDiagram
     }
 
     Store ..> StockObservable : uses
+    Store ..> NotificationAlertObserver : uses
 
     StockObservable <|.. IphoneObservableImp : implements
     NotificationAlertObserver <|.. EmailAlertObserverImpl : implements
