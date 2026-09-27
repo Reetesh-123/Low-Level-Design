@@ -1,3 +1,5 @@
+package Multimedia;
+
 public class VideoPlayer {
     public void setupRenderingEngine() {
         System.out.println("Rendering engine set up.");

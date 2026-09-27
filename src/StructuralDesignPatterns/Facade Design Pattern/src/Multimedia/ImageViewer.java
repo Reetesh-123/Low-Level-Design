@@ -1,3 +1,5 @@
+package Multimedia;
+
 public class ImageViewer {
     public void loadImageFile() {
         System.out.println("Image file loaded.");

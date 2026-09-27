@@ -1,3 +1,5 @@
+package Multimedia;
+
 public class MusicPlayer {
 
     public void InitializeAudioDriver(){

@@ -1,3 +1,9 @@
+package Facade;
+
+import Multimedia.ImageViewer;
+import Multimedia.MusicPlayer;
+import Multimedia.VideoPlayer;
+
 public class MediaFacade {
     private final ImageViewer imageViewer;
     private final MusicPlayer musicPlayer;
